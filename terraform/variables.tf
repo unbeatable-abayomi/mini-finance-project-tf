@@ -1,9 +1,13 @@
 variable "admin_username" {
 default = "azureuser"
 }
+# variable "location" {
+# default = "East US"
+# }
 variable "location" {
-default = "East US"
+default = "ukwest"
 }
+
 variable "vm_name" {
 default = "mini-finance-vm"
 }
