@@ -57,6 +57,8 @@ resource "azurerm_network_interface" "nic" {
 name = "finance-nic"
 location = var.location
 resource_group_name = azurerm_resource_group.rg.name
+# Add this line to force the correct order
+depends_on = [azurerm_subnet.subnet]
 ip_configuration {
 name = "internal"
 subnet_id = azurerm_subnet.subnet.id
@@ -73,7 +75,8 @@ resource "azurerm_linux_virtual_machine" "vm" {
 name = var.vm_name
 resource_group_name = azurerm_resource_group.rg.name
 location = var.location
-size = "Standard_B1s"
+#size = "Standard_B1s"
+size = "Standard_D2s_v3"
 admin_username = var.admin_username
 network_interface_ids = [azurerm_network_interface.nic.id]
 os_disk {
