@@ -1,0 +1,23 @@
+- name: Install Nginx and Deploy Content
+  hosts: web
+  become: yes
+  remote_user: adminuser
+  tasks:
+    - name: Ensure nginx is installed
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Copy custom index.html
+      copy:
+        src: files/index.html
+        dest: /var/www/html/index.html
+        owner: www-data
+        group: www-data
+        mode: '0644'
+
+    - name: Restart nginx to apply changes
+      service:
+        name: nginx
+        state: restarted
